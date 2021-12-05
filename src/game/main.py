@@ -30,11 +30,14 @@ class Game:
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
         pg.display.set_caption(TITLE)
         self.clock = pg.time.Clock()
-        self.load_data()
+        self.load_data('level_1.txt')
 
-    def load_data(self):
+    # def load_data(self):
+    #     game_folder = path.dirname(__file__)
+    #     self.map = Map(path.join(game_folder, 'level_1.txt'))
+    def load_data(self, levelFile):
         game_folder = path.dirname(__file__)
-        self.map = Map(path.join(game_folder, 'level_1.txt'))
+        self.map = Map(path.join(game_folder, levelFile))
 
     def new(self):
         # initialize all variables and do all the setup for a new game
@@ -158,6 +161,7 @@ class Game:
             # TEMPORARY SOLUTION
             if hit.health <= 0:
                 self.playing = False
+                self.load_data('level_2.txt')
         hits = pg.sprite.groupcollide(self.enemies, self.orbs, False, True)
         for hit in hits:
             hit.health -= ORB_DAMAGE + (2 * self.player.wand_count) - 2
@@ -198,6 +202,7 @@ class Game:
             # TEMPORARY SOLUTION
             if hit.health <= 0:
                 self.playing = False
+                self.load_data('level_2.txt')
         hits = pg.sprite.groupcollide(self.traps, self.swords, False, True)
         for hit in hits:
             hit.touched = True

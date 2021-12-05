@@ -194,7 +194,7 @@ class Generator(object):
             row_end = y + h
             col_start = x - 1
             col_end = x + w
-            
+            # Checking if there's a boss
             if 'B' in room[1]:
                 # make sure all corners of room are a wall tile
                 if genome[row_start][col_start] != TILES['wall']:
@@ -291,7 +291,11 @@ class Generator(object):
             split = random.randint(1, len(new_room_list)-1)
             i = split
             while i < len(self.room_list):
-                del new_room_list[random.randint(0, len(new_room_list)-1)]
+                cur_room = new_room_list[random.randint(0, len(new_room_list) - 1)]
+                if 'P' in cur_room[1] or 'B' in cur_room[1] or 'K' in cur_room[1]:
+                    continue
+                else:
+                    del new_room_list[random.randint(0, len(new_room_list) - 1)]
                 i += 1
             i = split
             while i < len(other.room_list):
